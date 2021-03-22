@@ -2,8 +2,8 @@ import pytest
 
 import networkx as nx
 
-from .src.draw_graph import build_color_list
-from .src.constants import Color, Attr
+from src.draw_graph import build_color_list
+from src.constants import Color, Attr
 
 from typing import List
 
