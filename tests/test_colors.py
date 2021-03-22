@@ -2,7 +2,7 @@ import pytest
 
 import networkx as nx
 
-from src.draw_graph import build_color_list
+from src.draw_graph import build_colors_list
 from src.constants import Color, Attr
 
 from typing import List
@@ -56,6 +56,6 @@ TEST_CASES_BUILD_COLOR_LIST.append(
     ids=str
 )
 def test_build_color_list(case: CaseBuildColorList) -> None:
-    node_color, edge_color = build_color_list(case.graph)
-    assert all(node_color == case.node_color) and\
-           all(edge_color == case.edge_color)
+    node_color, edge_color = build_colors_list(case.graph)
+    assert node_color == case.node_color and\
+           edge_color == case.edge_color
