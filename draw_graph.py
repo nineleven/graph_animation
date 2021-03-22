@@ -5,7 +5,7 @@ import networkx as nx
 
 from typing import List, Tuple
 
-from constants import *
+from constants import Attr, Color
 from utils import figure_to_pil
 
 
@@ -22,7 +22,7 @@ def build_colors_list(graph: nx.DiGraph) -> Tuple[List[Color], List[Color]]:
     Returns
     -------
     Tuple[List[Color], List[Color]]
-        A tuple that contains two arrays of colors. 
+        A tuple that contains two arrays of colors.
         One for nodes and the other for edges.
     '''
     node_colors = []
@@ -37,6 +37,7 @@ def build_colors_list(graph: nx.DiGraph) -> Tuple[List[Color], List[Color]]:
         edge_colors.append(color)
         
     return node_colors, edge_colors
+
 
 def draw_graph(graph: nx.DiGraph, pos: dict) -> PIL.Image.Image:
     '''
@@ -59,7 +60,13 @@ def draw_graph(graph: nx.DiGraph, pos: dict) -> PIL.Image.Image:
     fig = plt.figure()
     ax = plt.axes()
     
-    nx.draw_networkx(graph, node_color=node_colors, edge_color=edge_colors, pos=pos, ax=ax)
+    nx.draw_networkx(
+        graph,
+        node_color=node_colors,
+        edge_color=edge_colors,
+        pos=pos,
+        ax=ax
+    )
     
     plt.close()
     

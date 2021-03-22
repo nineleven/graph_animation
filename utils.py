@@ -6,6 +6,7 @@ import io
 
 from typing import Sequence
 
+
 def figure_to_pil(fig: plt.Figure) -> PIL.Image.Image:
     '''
     Converts matplotlib figure into an array of pixels
@@ -24,6 +25,7 @@ def figure_to_pil(fig: plt.Figure) -> PIL.Image.Image:
     fig.savefig(buf)
     buf.seek(0)
     return PIL.Image.open(buf)
+
 
 def make_animation(frames: Sequence[PIL.Image.Image]) -> FuncAnimation:
     '''
@@ -53,7 +55,8 @@ def make_animation(frames: Sequence[PIL.Image.Image]) -> FuncAnimation:
     
     return anim
 
-def save_animation(anim: Animation, filename: str, fps: int=5):
+
+def save_animation(anim: Animation, filename: str, fps: int = 5):
     '''
     Saves an animation to a file
 
