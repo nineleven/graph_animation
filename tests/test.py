@@ -5,6 +5,8 @@ import networkx as nx
 from .src.draw_graph import build_color_list
 from .src.constants import Color, Attr
 
+from typing import List
+
 
 class CaseBuildColorList:
     
@@ -16,7 +18,7 @@ class CaseBuildColorList:
         self.edge_color = edge_color
 
     def __str__(self) -> str:
-        return 'test_{}'.format(self._name)
+        return 'test_{}'.format(self.name)
 
 
 TEST_CASES_BUILD_COLOR_LIST = list()
@@ -30,7 +32,7 @@ TEST_CASES_BUILD_COLOR_LIST.append(
     )
 )
 
-graph = DiGraph()
+graph = nx.DiGraph()
 graph.add_node('A', **{Attr.ColorAttr: Color.PROGRESS})
 graph.add_node('B', **{Attr.ColorAttr: Color.REST})
 graph.add_edge('A', 'B', **{Attr.ColorAttr: Color.PROGRESS})
@@ -47,7 +49,12 @@ TEST_CASES_BUILD_COLOR_LIST.append(
     )
 )
 
-@pytest.mark.parametrize('build_color_list', TEST_CASES_BUILD_COLOR_LIST, ids=str)
+
+@pytest.mark.parametrize(
+    'build_color_list',
+    TEST_CASES_BUILD_COLOR_LIST,
+    ids=str
+)
 def test_build_color_list(case: CaseBuildColorList) -> None:
     node_color, edge_color = build_color_list(case.graph)
     assert all(node_color == case.node_color) and\
