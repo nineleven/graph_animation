@@ -7,5 +7,5 @@ class Color(Enum):
 
 
 class Attr(Enum):
-    MARKED_ATTR = '_anim_marked'
-    COLOR_ATTR = '_anim_color'
+    ATTR_MARKED = '_anim_marked'
+    ATTR_COLOR = '_anim_color'

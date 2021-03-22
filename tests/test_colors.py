@@ -33,12 +33,12 @@ TEST_CASES_BUILD_COLOR_LIST.append(
 )
 
 graph = nx.DiGraph()
-graph.add_node('A', **{Attr.ColorAttr: Color.PROGRESS})
-graph.add_node('B', **{Attr.ColorAttr: Color.REST})
-graph.add_edge('A', 'B', **{Attr.ColorAttr: Color.PROGRESS})
-graph.add_edge('A', 'C', **{Attr.ColorAttr: Color.REST})
-node_color = [Color.PROGRESS.value, Color.REST.value, Color.REST.value]
-edge_color = [Color.PROGRESS.value, Color.REST.value]
+graph.add_node('A', **{Attr.ATTR_COLOR: Color.COLOR_PROGRESS})
+graph.add_node('B', **{Attr.ATTR_COLOR: Color.COLOR_REST})
+graph.add_edge('A', 'B', **{Attr.ATTR_COLOR: Color.COLOR_PROGRESS})
+graph.add_edge('A', 'C', **{Attr.ATTR_COLOR: Color.COLOR_REST})
+node_color = [Color.COLOR_PROGRESS.value, Color.COLOR_REST.value, Color.COLOR_REST.value]
+edge_color = [Color.COLOR_PROGRESS.value, Color.COLOR_REST.value]
 
 TEST_CASES_BUILD_COLOR_LIST.append(
     CaseBuildColorList(

@@ -29,11 +29,11 @@ def build_colors_list(graph: nx.DiGraph) -> Tuple[List[Color], List[Color]]:
     edge_colors = []
     
     for node in graph.nodes:
-        color = graph.nodes[node].get(Attr.COLOR_ATTR, Color.COLOR_REST).value
+        color = graph.nodes[node].get(Attr.ATTR_COLOR, Color.COLOR_REST).value
         node_colors.append(color)
         
     for edge in graph.edges:
-        color = graph.edges[edge].get(Attr.COLOR_ATTR, Color.COLOR_REST).value
+        color = graph.edges[edge].get(Attr.ATTR_COLOR, Color.COLOR_REST).value
         edge_colors.append(color)
         
     return node_colors, edge_colors

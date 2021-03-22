@@ -32,23 +32,23 @@ def make_depth_first_search_frames(
     pos = nx.spring_layout(graph)
     
     def rec(curr_node):
-        graph.nodes[curr_node][Attr.MARKED_ATTR] = True
-        graph.nodes[curr_node][Attr.COLOR_ATTR] = Color.COLOR_PROGRESS
+        graph.nodes[curr_node][Attr.ATTR_MARKED] = True
+        graph.nodes[curr_node][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
 
         frames.append(draw_graph(graph, pos))
 
         for neighbor in graph[curr_node]:
             edge = (curr_node, neighbor)
-            graph.edges[edge][Attr.COLOR_ATTR] = Color.COLOR_PROGRESS
+            graph.edges[edge][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
             frames.append(draw_graph(graph, pos))
 
-            if not graph.nodes[neighbor].get(Attr.MARKED_ATTR, False):
+            if not graph.nodes[neighbor].get(Attr.ATTR_MARKED, False):
                 rec(neighbor)
 
-            del graph.edges[(curr_node, neighbor)][Attr.COLOR_ATTR]
+            del graph.edges[(curr_node, neighbor)][Attr.ATTR_COLOR]
             frames.append(draw_graph(graph, pos))
     
-        del graph.nodes[curr_node][Attr.COLOR_ATTR]
+        del graph.nodes[curr_node][Attr.ATTR_COLOR]
         frames.append(draw_graph(graph, pos))
     
     rec(start_node)
@@ -61,6 +61,6 @@ def make_depth_first_search_frames(
     '''
     for node in graph.nodes:
         if Attr.MARKED_ATTR in graph.nodes[node]:
-            del graph.nodes[node][Attr.MARKED_ATTR]
+            del graph.nodes[node][Attr.ATTR_MARKED]
         
     return frames
