@@ -1,0 +1,6 @@
+Pillow
+networkx
+matplotlib
+pytest
+flake8
+mypy
