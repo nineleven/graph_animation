@@ -6,7 +6,7 @@ from utils import make_animation, save_animation
 from depth_first_animation import make_depth_first_search_frames
 
 
-def main():
+def main() -> None:
     graph = nx.DiGraph()
 
     graph.add_edge('A', 'B')
@@ -28,7 +28,7 @@ def main():
         recursively create
         required directory
         '''
-        def rec_mkdir(path):
+        def rec_mkdir(path: Path) -> None:
             if not path.exists():
                 rec_mkdir(path.parent)
                 path.mkdir()

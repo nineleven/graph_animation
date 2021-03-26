@@ -31,7 +31,7 @@ def make_depth_first_search_frames(
     
     pos = nx.spring_layout(graph)
     
-    def rec(curr_node):
+    def rec(curr_node: Any) -> None:
         graph.nodes[curr_node][Attr.ATTR_MARKED] = True
         graph.nodes[curr_node][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
 

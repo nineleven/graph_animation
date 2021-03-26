@@ -47,7 +47,7 @@ def make_animation(frames: Sequence[PIL.Image.Image]) -> FuncAnimation:
 
     image = plt.imshow(frames[0])
 
-    def animate(i):
+    def animate(i: int) -> list:
         image.set_array(frames[i])
         return [image]
 
@@ -56,7 +56,7 @@ def make_animation(frames: Sequence[PIL.Image.Image]) -> FuncAnimation:
     return anim
 
 
-def save_animation(anim: Animation, filename: str, fps: int = 5):
+def save_animation(anim: Animation, filename: str, fps: int = 5) -> None:
     '''
     Saves an animation to a file
 
