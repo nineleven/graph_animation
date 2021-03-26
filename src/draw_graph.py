@@ -5,8 +5,8 @@ import networkx as nx
 
 from typing import List, Tuple
 
-from constants import Attr, Color
-from utils import figure_to_pil
+from .constants import Attr, Color
+from .utils import figure_to_pil
 
 
 def build_colors_list(graph: nx.DiGraph) -> Tuple[List[Color], List[Color]]:

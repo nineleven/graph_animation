@@ -2,8 +2,8 @@ import networkx as nx
 
 from pathlib import Path
 
-from utils import make_animation, save_animation
-from depth_first_animation import make_depth_first_search_frames
+from .utils import make_animation, save_animation
+from .depth_first_animation import make_depth_first_search_frames
 
 
 def main() -> None:
@@ -36,6 +36,8 @@ def main() -> None:
         rec_mkdir(output_dir)
 
     save_animation(anim, output_dir / filename, fps=3)
+
+    print('done')
 
 
 if __name__ == '__main__':

@@ -33,10 +33,14 @@ TEST_CASES_BUILD_COLOR_LIST.append(
 )
 
 graph = nx.DiGraph()
-graph.add_node('A', **{Attr.ATTR_COLOR: Color.COLOR_PROGRESS})
-graph.add_node('B', **{Attr.ATTR_COLOR: Color.COLOR_REST})
-graph.add_edge('A', 'B', **{Attr.ATTR_COLOR: Color.COLOR_PROGRESS})
-graph.add_edge('A', 'C', **{Attr.ATTR_COLOR: Color.COLOR_REST})
+graph.add_node('A')
+graph.nodes['A'][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
+graph.add_node('B')
+graph.nodes['B'][Attr.ATTR_COLOR] = Color.COLOR_REST
+graph.add_edge('A', 'B')
+graph.edges[('A', 'B')][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
+graph.add_edge('A', 'C')
+graph.edges[('A', 'C')][Attr.ATTR_COLOR] = Color.COLOR_REST
 node_color = [Color.COLOR_PROGRESS.value, Color.COLOR_REST.value, Color.COLOR_REST.value]
 edge_color = [Color.COLOR_PROGRESS.value, Color.COLOR_REST.value]
 
@@ -51,7 +55,7 @@ TEST_CASES_BUILD_COLOR_LIST.append(
 
 
 @pytest.mark.parametrize(
-    'build_color_list',
+    'case',
     TEST_CASES_BUILD_COLOR_LIST,
     ids=str
 )

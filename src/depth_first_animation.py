@@ -4,8 +4,8 @@ import PIL
 
 from typing import Any, List
 
-from draw_graph import draw_graph
-from constants import Attr, Color
+from .draw_graph import draw_graph
+from .constants import Attr, Color
 
 
 def make_depth_first_search_frames(
@@ -60,7 +60,7 @@ def make_depth_first_search_frames(
     a node more than one time
     '''
     for node in graph.nodes:
-        if Attr.MARKED_ATTR in graph.nodes[node]:
+        if Attr.ATTR_MARKED in graph.nodes[node]:
             del graph.nodes[node][Attr.ATTR_MARKED]
         
     return frames
