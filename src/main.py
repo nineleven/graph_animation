@@ -35,7 +35,7 @@ def main() -> None:
 
         rec_mkdir(output_dir)
 
-    save_animation(anim, output_dir / filename, fps=3)
+    save_animation(anim, str(output_dir / filename), fps=3)
 
     print('done')
 
