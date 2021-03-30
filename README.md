@@ -38,4 +38,8 @@ from .utils import save_animation
 
 save_animation(anim, 'result.gif', fps=3)
 ```
+This is the output we get:
+
+![result](output/animation.gif)
+
 See more [here](examples)
