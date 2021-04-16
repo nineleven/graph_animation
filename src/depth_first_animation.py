@@ -6,7 +6,7 @@ from typing import Any, List, DefaultDict
 
 from collections import defaultdict
 
-from .draw_graph import draw_graph
+from .render_graph import render_graph
 from .constants import GraphElementAttr, Color
 
 
@@ -39,30 +39,30 @@ def make_depth_first_search_frames(
     nodes_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
     edges_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
     
-    def rec(curr_node: Any) -> None:
+    def dfs(curr_node: Any) -> None:
         nodes_attr_dict[curr_node].marked = True
         nodes_attr_dict[curr_node].color = Color.COLOR_PROGRESS
 
-        frames.append(draw_graph(graph, nodes_attr_dict,
-                                 edges_attr_dict, pos))
+        frames.append(render_graph(graph, nodes_attr_dict,
+                                   edges_attr_dict, pos))
 
         for neighbor in graph[curr_node]:
             edge = (curr_node, neighbor)
             edges_attr_dict[edge].color = Color.COLOR_PROGRESS
-            frames.append(draw_graph(graph, nodes_attr_dict,
-                                     edges_attr_dict, pos))
+            frames.append(render_graph(graph, nodes_attr_dict,
+                                       edges_attr_dict, pos))
 
             if not nodes_attr_dict[neighbor].marked:
-                rec(neighbor)
+                dfs(neighbor)
 
             edges_attr_dict[(curr_node, neighbor)].color = Color.COLOR_REST
-            frames.append(draw_graph(graph, nodes_attr_dict,
-                                     edges_attr_dict, pos))
+            frames.append(render_graph(graph, nodes_attr_dict,
+                                       edges_attr_dict, pos))
     
         nodes_attr_dict[curr_node].color = Color.COLOR_REST
-        frames.append(draw_graph(graph, nodes_attr_dict,
-                                 edges_attr_dict, pos))
+        frames.append(render_graph(graph, nodes_attr_dict,
+                                   edges_attr_dict, pos))
     
-    rec(start_node)
+    dfs(start_node)
     
     return frames

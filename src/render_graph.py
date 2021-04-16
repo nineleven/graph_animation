@@ -38,10 +38,10 @@ def build_colors_list(graph: nx.Graph,
     return node_colors, edge_colors
 
 
-def draw_graph(graph: nx.DiGraph,
-               nodes_attr_dict: Dict[Any, GraphElementAttr],
-               edges_attr_dict: Dict[Tuple, GraphElementAttr],
-               pos: dict) -> PIL.Image.Image:
+def render_graph(graph: nx.DiGraph,
+                 nodes_attr_dict: Dict[Any, GraphElementAttr],
+                 edges_attr_dict: Dict[Tuple, GraphElementAttr],
+                 pos: dict) -> PIL.Image.Image:
     '''
     Creates image of a graph as an array of pixels
     

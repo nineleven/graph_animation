@@ -4,7 +4,7 @@ import PIL
 
 from typing import Any, List, Deque, DefaultDict
 
-from .draw_graph import draw_graph
+from .render_graph import render_graph
 from .constants import GraphElementAttr, Color
 
 from collections import deque, defaultdict
@@ -47,14 +47,16 @@ def make_breadth_first_search_frames(
 
         nodes_attr_dict[curr_node].marked = True
         nodes_attr_dict[curr_node].color = Color.COLOR_PROGRESS
-        frames.append(draw_graph(graph, nodes_attr_dict, edges_attr_dict, pos))
+        frames.append(render_graph(graph, nodes_attr_dict,
+                                   edges_attr_dict, pos))
         
         for neighbor in graph[curr_node]:
             
             if not nodes_attr_dict[neighbor].marked:
                 edge = (curr_node, neighbor)
                 edges_attr_dict[edge].color = Color.COLOR_PROGRESS
-                frames.append(draw_graph(graph, nodes_attr_dict, edges_attr_dict, pos))
+                frames.append(render_graph(graph, nodes_attr_dict,
+                                           edges_attr_dict, pos))
                 
                 queue.append(neighbor)
    
