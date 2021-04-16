@@ -3,10 +3,12 @@ import networkx as nx
 from src.utils import make_animation, save_animation, rec_mkdir
 from src.depth_first_animation import make_depth_first_search_frames
 
-from example_utils import parse_output_path
+from example_utils import parse_output_path, get_logger
 
 
 def main() -> None:
+    logger = get_logger()
+    
     output_path = parse_output_path()
     output_dir = output_path.parent
     
@@ -28,7 +30,7 @@ def main() -> None:
 
     save_animation(anim, str(output_path), fps=3)
 
-    print('done')
+    logger.info('done')
 
 
 if __name__ == '__main__':

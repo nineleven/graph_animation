@@ -5,8 +5,13 @@ from src.breadth_first_animation import make_breadth_first_search_frames
 
 from example_utils import parse_output_path
 
+import logging
+
 
 def main() -> None:
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
     output_path = parse_output_path()
     output_dir = output_path.parent
     
@@ -20,7 +25,7 @@ def main() -> None:
 
     save_animation(anim, str(output_path), fps=3)
 
-    print('done')
+    logger.info('done')
 
 
 if __name__ == '__main__':
