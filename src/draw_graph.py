@@ -3,43 +3,45 @@ import PIL
 
 import networkx as nx
 
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 
-from .constants import Attr, Color
+from .constants import GraphElementAttr
 from .utils import figure_to_pil
 
 
-def build_colors_list(graph: nx.DiGraph) -> Tuple[List[Color], List[Color]]:
+def build_colors_list(graph: nx.Graph,
+                      nodes_attr_dict: Dict[Any, GraphElementAttr],
+                      edges_attr_dict: Dict[Tuple, GraphElementAttr]) -> Tuple[List[str], List[str]]:
     '''
     Utility function used to determine
     colors of nodes and edges
     
     Parameters
     ----------
-    graph : networkx.DiGraph
+    graph : networkx.Graph
         Graph
+    nodes_attr_dict : Dict[Any, GraphElementAttr]
+        Dictionary that contains constants.GraphElementAttr's of all(!) nodes
+    edges_attr_dict : Dict[Tuple, GraphElementAttr]
+        Dictionary that contains constants.GraphElementAttr's of all(!) edges
     
     Returns
     -------
-    Tuple[List[Color], List[Color]]
+    Tuple[List[str], List[str]]
         A tuple that contains two arrays of colors.
         One for nodes and the other for edges.
     '''
-    node_colors = []
-    edge_colors = []
-    
-    for node in graph.nodes:
-        color = graph.nodes[node].get(Attr.ATTR_COLOR, Color.COLOR_REST).value
-        node_colors.append(color)
-        
-    for edge in graph.edges:
-        color = graph.edges[edge].get(Attr.ATTR_COLOR, Color.COLOR_REST).value
-        edge_colors.append(color)
+
+    node_colors = [nodes_attr_dict[node].color.value for node in graph.nodes]
+    edge_colors = [edges_attr_dict[edge].color.value for edge in graph.edges]
         
     return node_colors, edge_colors
 
 
-def draw_graph(graph: nx.DiGraph, pos: dict) -> PIL.Image.Image:
+def draw_graph(graph: nx.DiGraph,
+               nodes_attr_dict: Dict[Any, GraphElementAttr],
+               edges_attr_dict: Dict[Tuple, GraphElementAttr],
+               pos: dict) -> PIL.Image.Image:
     '''
     Creates image of a graph as an array of pixels
     
@@ -47,6 +49,10 @@ def draw_graph(graph: nx.DiGraph, pos: dict) -> PIL.Image.Image:
     ----------
     graph : networkx.DiGraph
         Graph
+    nodes_attr_dict : Dict[Any, GraphElementAttr]
+        Dictionary that contains GraphElementAttr's of all(!) nodes
+    edges_attr_dict : Dict[Tuple, GraphElementAttr]
+        Dictionary that contains GraphElementAttr's of all(!) edges
     pos : dict
         networkx graph layout
     
@@ -55,7 +61,7 @@ def draw_graph(graph: nx.DiGraph, pos: dict) -> PIL.Image.Image:
     PIL.Image.Image
         Array of pixels
     '''
-    node_colors, edge_colors = build_colors_list(graph)
+    node_colors, edge_colors = build_colors_list(graph, nodes_attr_dict, edges_attr_dict)
     
     fig = plt.figure()
     ax = plt.axes()

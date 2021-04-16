@@ -2,12 +2,12 @@ import networkx as nx
 
 import PIL
 
-from typing import Any, List, Deque
+from typing import Any, List, Deque, DefaultDict
 
 from .draw_graph import draw_graph
-from .constants import Attr, Color
+from .constants import GraphElementAttr, Color
 
-from collections import deque
+from collections import deque, defaultdict
 
 
 def make_breadth_first_search_frames(
@@ -36,40 +36,26 @@ def make_breadth_first_search_frames(
     queue: Deque[Any] = deque()
     queue.append(start_node)
 
+    def default_func() -> GraphElementAttr:
+        return GraphElementAttr(Color.COLOR_REST, False)
+    
+    nodes_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
+    edges_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
+
     while queue:
         curr_node = queue.popleft()
 
-        graph.nodes[curr_node][Attr.ATTR_MARKED] = True
-        graph.nodes[curr_node][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
-        frames.append(draw_graph(graph, pos))
+        nodes_attr_dict[curr_node].marked = True
+        nodes_attr_dict[curr_node].color = Color.COLOR_PROGRESS
+        frames.append(draw_graph(graph, nodes_attr_dict, edges_attr_dict, pos))
         
         for neighbor in graph[curr_node]:
             
-            if not graph.nodes[neighbor].get(Attr.ATTR_MARKED, False):
+            if not nodes_attr_dict[neighbor].marked:
                 edge = (curr_node, neighbor)
-                graph.edges[edge][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
-                frames.append(draw_graph(graph, pos))
+                edges_attr_dict[edge].color = Color.COLOR_PROGRESS
+                frames.append(draw_graph(graph, nodes_attr_dict, edges_attr_dict, pos))
                 
                 queue.append(neighbor)
-
-    '''
-    Removing the color attributes
-    '''
-    for node in graph.nodes:
-        if Attr.ATTR_COLOR in graph.nodes[node]:
-            del graph.nodes[node][Attr.ATTR_COLOR]
-    for edge in graph.edges:
-        if Attr.ATTR_COLOR in graph.edges[edge]:
-            del graph.edges[edge][Attr.ATTR_COLOR]
-
-    '''
-    Cleaning up the attribute
-    that was used to prevent
-    algorithm from processing
-    a node more than one time
-    '''
-    for node in graph.nodes:
-        if Attr.ATTR_MARKED in graph.nodes[node]:
-            del graph.nodes[node][Attr.ATTR_MARKED]
-        
+   
     return frames

@@ -2,10 +2,12 @@ import networkx as nx
 
 import PIL
 
-from typing import Any, List
+from typing import Any, List, DefaultDict
+
+from collections import defaultdict
 
 from .draw_graph import draw_graph
-from .constants import Attr, Color
+from .constants import GraphElementAttr, Color
 
 
 def make_depth_first_search_frames(
@@ -30,37 +32,37 @@ def make_depth_first_search_frames(
     frames = []
     
     pos = nx.spring_layout(graph)
+
+    def default_func() -> GraphElementAttr:
+        return GraphElementAttr(Color.COLOR_REST, False)
+    
+    nodes_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
+    edges_attr_dict: DefaultDict[Any, GraphElementAttr] = defaultdict(default_func)
     
     def rec(curr_node: Any) -> None:
-        graph.nodes[curr_node][Attr.ATTR_MARKED] = True
-        graph.nodes[curr_node][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
+        nodes_attr_dict[curr_node].marked = True
+        nodes_attr_dict[curr_node].color = Color.COLOR_PROGRESS
 
-        frames.append(draw_graph(graph, pos))
+        frames.append(draw_graph(graph, nodes_attr_dict,
+                                 edges_attr_dict, pos))
 
         for neighbor in graph[curr_node]:
             edge = (curr_node, neighbor)
-            graph.edges[edge][Attr.ATTR_COLOR] = Color.COLOR_PROGRESS
-            frames.append(draw_graph(graph, pos))
+            edges_attr_dict[edge].color = Color.COLOR_PROGRESS
+            frames.append(draw_graph(graph, nodes_attr_dict,
+                                     edges_attr_dict, pos))
 
-            if not graph.nodes[neighbor].get(Attr.ATTR_MARKED, False):
+            if not nodes_attr_dict[neighbor].marked:
                 rec(neighbor)
 
-            del graph.edges[(curr_node, neighbor)][Attr.ATTR_COLOR]
-            frames.append(draw_graph(graph, pos))
+            edges_attr_dict[(curr_node, neighbor)].color = Color.COLOR_REST
+            frames.append(draw_graph(graph, nodes_attr_dict,
+                                     edges_attr_dict, pos))
     
-        del graph.nodes[curr_node][Attr.ATTR_COLOR]
-        frames.append(draw_graph(graph, pos))
+        nodes_attr_dict[curr_node].color = Color.COLOR_REST
+        frames.append(draw_graph(graph, nodes_attr_dict,
+                                 edges_attr_dict, pos))
     
     rec(start_node)
     
-    '''
-    Cleaning up an attribute
-    that was used to prevent
-    algorithm from processing
-    a node more than one time
-    '''
-    for node in graph.nodes:
-        if Attr.ATTR_MARKED in graph.nodes[node]:
-            del graph.nodes[node][Attr.ATTR_MARKED]
-        
     return frames

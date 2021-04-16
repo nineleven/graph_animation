@@ -24,7 +24,7 @@ def main() -> None:
         rec_mkdir(output_dir)
 
     save_animation(anim, str(output_path), fps=3)
-
+    
     logger.info('done')
 
 
