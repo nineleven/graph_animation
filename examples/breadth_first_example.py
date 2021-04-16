@@ -3,14 +3,11 @@ import networkx as nx
 from src.utils import make_animation, save_animation, rec_mkdir
 from src.breadth_first_animation import make_breadth_first_search_frames
 
-from example_utils import parse_output_path
-
-import logging
+from example_utils import parse_output_path, get_logger
 
 
 def main() -> None:
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    logger = get_logger()
     
     output_path = parse_output_path()
     output_dir = output_path.parent
