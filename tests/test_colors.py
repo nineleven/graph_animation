@@ -2,7 +2,7 @@ import pytest
 
 import networkx as nx
 
-from src.draw_graph import build_colors_list
+from src.render_graph import build_colors_list
 from src.constants import Color, GraphElementAttr
 
 from typing import List, DefaultDict, Any, Dict
