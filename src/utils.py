@@ -4,7 +4,23 @@ from matplotlib.animation import FuncAnimation, Animation, PillowWriter
 import PIL
 import io
 
+from pathlib import Path
+
 from typing import Sequence
+
+
+def rec_mkdir(path: Path) -> None:
+    '''
+    Recursively creates requered directory
+
+    Parameters
+    ----------
+    path : pathlib.Path
+        directory path
+    '''
+    if not path.exists():
+        rec_mkdir(path.parent)
+        path.mkdir()
 
 
 def figure_to_pil(fig: plt.Figure) -> PIL.Image.Image:
