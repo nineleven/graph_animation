@@ -13,8 +13,8 @@ from collections import defaultdict
 class CaseBuildColorList:
     
     def __init__(self, name: str, graph: nx.DiGraph,
-                 nodes_attr_dict: dict[Any, GraphElementAttr],
-                 edges_attr_dict: dict[Any, GraphElementAttr],
+                 nodes_attr_dict: Dict[Any, GraphElementAttr],
+                 edges_attr_dict: Dict[Any, GraphElementAttr],
                  node_color: List[str], edge_color: List[str]):
         self.name = name
         self.graph = graph
