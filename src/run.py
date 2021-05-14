@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from .run_utils import parse_output_path, make_anim_and_save, \
     rec_mkdir, read_graph
 from .utils import get_logger
