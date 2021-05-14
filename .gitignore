@@ -1,0 +1,10 @@
+.ipynb_checkpoints
+__pycache__
+.mypy_cache
+*.ipynb
+
+!/docs
+/docs/*
+!/docs/build
+/docs/build/*
+!/docs/build/html
