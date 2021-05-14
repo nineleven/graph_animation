@@ -54,11 +54,11 @@ def rec_mkdir(path: Path) -> None:
         path.mkdir()
 
 
-def read_graph(input_path: Path) -> nx.Graph:
-    return nx.read_edgelist(input_path)
+def read_graph(input_path: Path) -> nx.DiGraph:
+    return nx.read_edgelist(input_path, create_using=nx.DiGraph())
 
 
-def make_anim_and_save(algorithm: str, graph: nx.Graph, start_node: Any, output_path: Path) -> None:
+def make_anim_and_save(algorithm: str, graph: nx.DiGraph, start_node: Any, output_path: Path) -> None:
 
     if algorithm == 'depth_first':
         trav = df_trav(graph, start_node)
