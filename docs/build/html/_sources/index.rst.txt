@@ -6,14 +6,24 @@
 Welcome to Graph animation's documentation!
 ===========================================
 
-.. automodule: src
+.. automodule:: src
 	:members:
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
    
-.. automodule: src.render_graph
+.. automodule:: src.render_graph
 	:members:
+   
+.. automodule:: src.breadth_first_traversal
+	:members:
+   
+.. automodule:: src.constants
+	:members:
+   
+.. automodule:: src.depth_first_traversal
+	:members:
+   
+.. automodule:: src.utils
+	:members:
+	
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
