@@ -20,13 +20,13 @@ First, we need to create a file, that contains the graph as a list of edges. Her
 2 4
 4 6
 ```
-Next, we run examples/example.py as follows:
+Next, we execute src/run.py as follows:
 ```
-example.py algorithm input_path start_node output_path
+run.py algorithm input_path start_node output_path
 ```
 Which with our parameters becomes:
 ```
-example.py depth_first edgelist.txt 1 df_output.gif
+run.py depth_first ../examples/edgelist.txt 1 ../examples/df_output.gif
 ```
 This is the output we get:
 
