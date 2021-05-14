@@ -10,36 +10,26 @@ pip install -r requirement.txt
 ```
 ## Examples
 Let's visualize the depth first search on a simple graph.
-First, we need to create a networkx graph:
+First, we need to create a file, that contains the graph as a list of edges. Here we will use [examples/edgelist.txt](examples/edgelist.txt):
 ```
-import networkx
-
-graph = nx.DiGraph()
-
-graph.add_edge('A', 'B')
-graph.add_edge('A', 'C')
-graph.add_edge('B', 'C')
-graph.add_edge('D', 'E')
-graph.add_edge('A', 'E')
-graph.add_edge('B', 'D')
-graph.add_edge('D', 'F')
+1 2
+1 3
+2 3
+4 5
+1 5
+2 4
+4 6
 ```
-Next, we get the frames of a future animation, using function __make_depth_first_search_frames__ from __depth_first_animation__ package and create animation object with function __make_animation__ from __utils__:
+Next, we run examples/example.py as follows:
 ```
-from .utils import make_animation
-from .depth_first_animation import make_depth_first_search_frames
-
-frames = make_depth_first_search_frames(graph, 'A')
-anim = make_animation(frames)
+example.py algorithm input_path start_node output_path
 ```
-Last, we save the animation into a .gif file, using function __save_animation__ from __utils__ package:
+Which with our parameters becomes:
 ```
-from .utils import save_animation
-
-save_animation(anim, 'result.gif', fps=3)
+example.py depth_first edgelist.txt 1 df_output.gif
 ```
 This is the output we get:
 
-![result](output/animation.gif)
+![result](examples/df_output.gif)
 
 See more [here](examples)
