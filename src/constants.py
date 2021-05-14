@@ -1,5 +1,4 @@
 from enum import Enum
-from dataclasses import dataclass
 
 
 class Color(Enum):
@@ -7,7 +6,6 @@ class Color(Enum):
     COLOR_REST = 'red'
 
 
-@dataclass
-class GraphElementAttr:
-    color: Color
-    marked: bool
+class GraphElementType(Enum):
+    TYPE_NODE = 'node'
+    TYPE_EDGE = 'edge'

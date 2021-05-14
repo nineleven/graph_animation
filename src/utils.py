@@ -4,23 +4,38 @@ from matplotlib.animation import FuncAnimation, Animation, PillowWriter
 import PIL
 import io
 
-from pathlib import Path
+import sys
+import logging
 
 from typing import Sequence
 
 
-def rec_mkdir(path: Path) -> None:
+def get_logger(name: str) -> logging.Logger:
     '''
-    Recursively creates requered directory
+    Configures and returns a logger
 
     Parameters
     ----------
-    path : pathlib.Path
-        directory path
+    name : str
+        Name of the logger. Usually the same as the name of module
+
+    Returns
+    -------
+    logging.Logger
+        Logger
     '''
-    if not path.exists():
-        rec_mkdir(path.parent)
-        path.mkdir()
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+
+    stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler.setLevel(logging.INFO)
+
+    formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+    stream_handler.setFormatter(formatter)
+    
+    logger.addHandler(stream_handler)
+
+    return logger
 
 
 def figure_to_pil(fig: plt.Figure) -> PIL.Image.Image:
